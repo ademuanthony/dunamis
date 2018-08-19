@@ -1,5 +1,32 @@
 DROP TABLE IF EXISTS album;
 DROP TABLE IF EXISTS artist;
+DROP TABLE IF EXISTS seeds;
+
+
+
+
+
+
+CREATE TABLE seeds
+(
+    `id` INT NOT NULL AUTO_INCREMENT ,
+    `title` VARCHAR(256) NOT NULL ,
+    `content` TEXT NOT NULL ,
+    `thought` VARCHAR(256) NOT NULL ,
+    `daily_reading` VARCHAR(256) NOT NULL ,
+    `prayer` VARCHAR(256) NOT NULL ,
+    `assignment` VARCHAR(256) NOT NULL ,
+    `quote` VARCHAR(256) NOT NULL ,
+    `resource` VARCHAR(256) NOT NULL ,
+    `date` DATETIME NOT NULL ,
+    `day` INT NOT NULL ,
+    `month` INT NOT NULL ,
+    `year` INT NOT NULL ,
+    PRIMARY KEY (`id`)
+) ENGINE = InnoDB;
+
+
+
 
 CREATE TABLE artist
 (
