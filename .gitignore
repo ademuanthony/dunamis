@@ -28,5 +28,6 @@ glide.lock
 coverage.out
 coverage-all.out
 server
+tmp
 
 # vendor

@@ -56,6 +56,38 @@ func (s *SeedService) GetByDay(rs app.RequestScope, day int, month time.Month, y
 	return seed, err
 }
 
+// GetForNextThreeDays returns the seeds for the next three days starting from the specified day, month and year from the db or
+// the http://www.dunamisgospel.org website.
+func (s *SeedService) GetForNextThreeDays(rs app.RequestScope, day int, month time.Month, year int) ([]*models.Seed, error) {
+	var seeds []*models.Seed
+	date := time.Date(year, month, day, 0, 0,0, 0, util.DefaultLocation)
+
+	//first day
+	seed1, err := s.GetByDay(rs, date.Day(), date.Month(), date.Year())
+	if err != nil {
+		return seeds, err
+	}
+	seeds = append(seeds, seed1)
+
+	//second day
+	date = date.AddDate(0,0,1)
+	seed2, err := s.GetByDay(rs, date.Day(), date.Month(), date.Year())
+	if err != nil {
+		return seeds, err
+	}
+	seeds = append(seeds, seed2)
+
+	//third day
+	date = date.AddDate(0,0,1)
+	seed3, err := s.GetByDay(rs, date.Day(), date.Month(), date.Year())
+	if err != nil {
+		return seeds, err
+	}
+	seeds = append(seeds, seed3)
+
+	return seeds, err
+}
+
 //scrapSeeds scraps latest seed of destiny and save to the storage
 func (s *SeedService) scrapSeeds(rs app.RequestScope,) error {
 	links, lastErr := s.getSodLinks()

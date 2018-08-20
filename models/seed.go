@@ -12,7 +12,7 @@ type Seed struct {
 	Content      string      `json:"content" db:"content"`
 	Prayer       string      `json:"prayer" db:"prayer"`
 	Assignment   string      `json:"assignment" db:"assignment"`
-	DailyReading string      `json:"daily_reading" db:"daily_reading"`
+	DailyReading string      `json:"dailyReading" db:"daily_reading"`
 	Quote        string      `json:"quote" db:"quote"`
 	Resource     string      `json:"resource" db:"resource"`
 	Date         string      `json:"date" db:"date"`
@@ -21,7 +21,7 @@ type Seed struct {
 	Day          int         `json:"day" db:"day"`
 	Paragraphs   []Paragraph `json:"paragraphs" db:"-"`
 	Scripture    string      `json:"scripture" db:"scripture"`
-	RememberThis string      `json:"remember_this" db:"remember_this"`
+	RememberThis string      `json:"rememberThis" db:"remember_this"`
 }
 
 func (m Seed) Validate() error {

@@ -43,7 +43,7 @@ func ParseOrdinalDate(layout, value string) (time.Time, error) {
 
 	//hadle and log err in format
 
-	return time.Date(int(year), time.Month(month), int(day), 0,0,0,0,defaultLocation), nil
+	return time.Date(int(year), time.Month(month), int(day), 0,0,0,0, DefaultLocation), nil
 
 	const ( // day number
 		cardMinLen = len("1")
@@ -83,12 +83,12 @@ func ParseOrdinalDate(layout, value string) (time.Time, error) {
 		}
 	}
 
-	date, err := time.ParseInLocation(layout, value, defaultLocation)
+	date, err := time.ParseInLocation(layout, value, DefaultLocation)
 	return date, err
 }
 
 // Times without a timezone are Hong Kong times.
-var defaultLocation = func(name string) *time.Location {
+var DefaultLocation = func(name string) *time.Location {
 	loc, err := time.LoadLocation(name)
 	if err != nil {
 		loc = time.UTC

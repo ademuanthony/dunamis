@@ -13,6 +13,7 @@ type (
 	seedService interface {
 		Get(rs app.RequestScope, id int) (*models.Seed, error)
 		GetByDay(rs app.RequestScope, day int, month time.Month, year int) (*models.Seed, error)
+		GetForNextThreeDays(rs app.RequestScope, day int, month time.Month, year int) ([]*models.Seed, error)
 		Query(rs app.RequestScope, offset, limit int) ([]models.Seed, error)
 		Count(rs app.RequestScope) (int, error)
 		Create(rs app.RequestScope, model *models.Seed) (*models.Seed, error)
@@ -30,6 +31,7 @@ func ServeSeedResource(rg *routing.RouteGroup, service seedService) {
 	r := &seedResource{service}
 	rg.Get("/seeds/<id>", r.get)
 	rg.Get("/seeds/<day>/<month>/<year>", r.getByDay)
+	rg.Get("/seeds/next-three/<day>/<month>/<year>", r.getForNextThreeDays)
 	rg.Get("/seeds", r.query)
 	rg.Put("/seeds/<id>", r.update)
 }
@@ -65,6 +67,29 @@ func (r *seedResource) getByDay(c *routing.Context) error {
 
 	response, err := r.service.GetByDay(app.GetRequestScope(c), day, time.Month(month), year)
 	if err != nil {
+		return err
+	}
+
+	return c.Write(response)
+}
+
+func (r *seedResource) getForNextThreeDays(c *routing.Context) error {
+	day, err := strconv.Atoi(c.Param("day"))
+	if err != nil {
+		return err
+	}
+
+	month, err := strconv.Atoi(c.Param("month"))
+	if err != nil {
+		return err
+	}
+	year, err := strconv.Atoi(c.Param("year"))
+	if err != nil {
+		return err
+	}
+
+	response, err := r.service.GetForNextThreeDays(app.GetRequestScope(c), day, time.Month(month), year)
+	if err != nil && len(response) == 0{
 		return err
 	}
 

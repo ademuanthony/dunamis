@@ -14,7 +14,7 @@ var ParagraphTypes = struct{
 
 type Paragraph struct {
 	Id      int           `json:"id" db:"id"`
-	SeedId  int           `json:"seed_id" db:"seed_id"`
+	SeedId  int           `json:"seedId" db:"seed_id"`
 	Type    ParagraphType `json:"type" db:"type"`
 	Content string        `json:"content" db:"content"`
 }
